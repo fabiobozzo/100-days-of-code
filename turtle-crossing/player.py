@@ -12,13 +12,10 @@ class Player(Turtle):
         self.penup()
         self.setheading(90)
         self.color("black")
-        self.reset()
+        self.go_to_start()
 
-    def reset(self):
+    def go_to_start(self):
         self.goto(STARTING_POSITION)
 
     def move(self):
         self.forward(MOVE_DISTANCE)
-
-    def next_level(self):
-        self.reset()

@@ -34,7 +34,7 @@ if __name__ == '__main__':
 
         # Check if player has reached the next level
         if player.ycor() > 300:
-            player.next_level()
+            player.go_to_start()
             scoreboard.next_level()
             car_manager.next_level()
             screen_update_interval *= 0.95

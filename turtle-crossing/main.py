@@ -5,6 +5,8 @@ from car_manager import CarManager
 from player import Player
 from scoreboard import Scoreboard
 
+STARTING_SCREEN_UPDATE_INTERVAL = 0.1
+
 if __name__ == '__main__':
     screen = Screen()
     screen.setup(width=600, height=600)
@@ -18,6 +20,8 @@ if __name__ == '__main__':
     screen.onkey(key="space", fun=player.move)
 
     game_is_on = True
+    screen_update_interval = STARTING_SCREEN_UPDATE_INTERVAL
+
     while game_is_on:
         car_manager.move_cars()
         car_manager.recycle_cars()
@@ -33,8 +37,9 @@ if __name__ == '__main__':
             player.next_level()
             scoreboard.next_level()
             car_manager.next_level()
+            screen_update_interval *= 0.95
 
-        time.sleep(0.1)
+        time.sleep(screen_update_interval)
         screen.update()
 
     screen.exitonclick()

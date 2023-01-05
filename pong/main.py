@@ -25,7 +25,7 @@ if __name__ == '__main__':
 
     is_game_on = True
     while is_game_on:
-        time.sleep(0.03)
+        time.sleep(ball.move_speed)
         screen.update()
         ball.move()
 

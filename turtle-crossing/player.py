@@ -11,11 +11,14 @@ class Player(Turtle):
         super().__init__(shape="turtle")
         self.penup()
         self.setheading(90)
+        self.color("green")
         self.reset()
 
     def reset(self):
-        self.color("green")
         self.goto(STARTING_POSITION)
 
     def move(self):
         self.forward(MOVE_DISTANCE)
+
+    def next_level(self):
+        self.reset()

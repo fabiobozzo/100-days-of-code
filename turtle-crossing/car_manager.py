@@ -29,9 +29,9 @@ class CarManager:
     def recycle_cars(self):
         for car in self.cars:
             if car.xcor() < -310:
-                self.add_new_car(car.pencolor())
                 car.hideturtle()
-                self.cars.remove(car)
+                car.goto(300, random.randint(-255, 250))
+                car.showturtle()
 
     def next_level(self):
         for car in self.cars:

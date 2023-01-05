@@ -11,7 +11,7 @@ class Player(Turtle):
         super().__init__(shape="turtle")
         self.penup()
         self.setheading(90)
-        self.color("green")
+        self.color("black")
         self.reset()
 
     def reset(self):

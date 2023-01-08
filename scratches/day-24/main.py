@@ -21,3 +21,8 @@ with open("/Users/fabio/test.txt") as file:
     contents = file.read()
     print(contents)
 
+# relative paths
+with open("../../../../test.txt") as file:
+    contents = file.read()
+    print(contents)
+

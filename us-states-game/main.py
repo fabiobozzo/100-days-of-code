@@ -22,10 +22,7 @@ while len(guessed_states) < len(all_states):
     answer = screen.textinput(title, "What's an american state name?").title()
 
     if answer == "Exit":
-        missing_states = []
-        for state in all_states["state"]:
-            if state not in guessed_states:
-                missing_states.append(state)
+        missing_states = [state for state in all_states["state"] if state not in guessed_states]
         new_date = pandas.DataFrame(missing_states)
         new_date.to_csv("states_to_learn.csv")
         break

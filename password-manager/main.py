@@ -1,8 +1,8 @@
 from tkinter import *
 from tkinter import messagebox
 
+import json
 import pyperclip
-
 import password_generator
 
 
@@ -20,19 +20,30 @@ def save_password():
     username = username_input.get()
     password = password_input.get()
 
+    new_data = {
+        website: {
+            "username": username,
+            "password": password
+        }
+    }
+
     if len(website) == 0 or len(password) == 0:
         messagebox.showwarning(title="Ooops", message="Please make sure you haven't left any fields empty!")
     else:
-        is_ok = messagebox.askokcancel(title=website,
-                                       message=f"Is it ok to save the password for {username} @ {website}?")
+        if messagebox.askokcancel(title=website, message=f"Is it ok to save the password for {username} @ {website}?"):
+            try:
+                with open("data.json", "r") as data_file:
+                    data = json.load(data_file)
+                    data.update(new_data)
+            except FileNotFoundError:
+                data = new_data
+            finally:
+                with open("data.json", "w") as data_file:
+                    json.dump(data, data_file, indent=4)
 
-        if is_ok:
-            with open("data.txt", "a") as file:
-                file.write(f"{website} | {username} | {password}\n")
-
-            website_input.delete(0, END)
-            password_input.delete(0, END)
-            website_input.focus()
+                website_input.delete(0, END)
+                password_input.delete(0, END)
+                website_input.focus()
 
         messagebox.showinfo(title="Thank you", message="Your password has been saved.")
 

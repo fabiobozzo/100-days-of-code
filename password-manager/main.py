@@ -48,6 +48,23 @@ def save_password():
         messagebox.showinfo(title="Thank you", message="Your password has been saved.")
 
 
+# ------------------------ SEARCH PASSWORD ---------------------------- #
+def find_password():
+    website = website_input.get()
+    if len(website.strip()) == 0:
+        messagebox.showwarning(title="Invalid Input", message="Please enter a website name to search for.")
+    else:
+        try:
+            with open("data.json", "r") as data_file:
+                data = json.load(data_file)
+                messagebox.showinfo(title=website,
+                                    message=f"Username: {data[website]['username']}\nPassword: {data[website]['password']}")
+        except FileNotFoundError:
+            messagebox.showerror(title="File not found", message="No data file found.")
+        except KeyError:
+            messagebox.showwarning(title="Website not found", message="No details for the website exist.")
+
+
 # ---------------------------- UI SETUP ------------------------------- #
 window = Tk()
 window.title("MyPass Password Manager")
@@ -65,9 +82,12 @@ username_label.grid(row=2, column=0)
 password_label = Label(text="Password:", bg="white")
 password_label.grid(row=3, column=0)
 
-website_input = Entry(width=35, highlightbackground="white")
-website_input.grid(row=1, column=1, columnspan=2)
+website_input = Entry(width=20, highlightbackground="white")
+website_input.grid(row=1, column=1)
 website_input.focus()
+
+website_search_button = Button(text="Search", highlightbackground="white", width=11, command=find_password)
+website_search_button.grid(row=1, column=2)
 
 username_input = Entry(width=35, highlightbackground="white")
 username_input.grid(row=2, column=1, columnspan=2)

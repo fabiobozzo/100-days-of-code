@@ -17,7 +17,8 @@ try:
 except FileNotFoundError:
     print("there is no progress saved. reading from the list with all words.")
     data = pandas.read_csv("./data/dutch_words.csv")
-words = data.to_dict(orient="records")
+finally:
+    words = data.to_dict(orient="records")
 
 # ------------------------- EVENTS ------------------------- #
 timer = None

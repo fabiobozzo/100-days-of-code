@@ -1,11 +1,19 @@
+import os
 import requests
-
-MY_LAT = 52.362990
-MY_LON = 4.873220
-OWM_API_KEY = "3260a87b309f1ab3f1c1ce5a60f51b60"
-OWM_API_ENDPOINT = "https://api.openweathermap.org/data/2.8/onecall"
+from twilio.rest import Client
+from dotenv import load_dotenv
 
 if __name__ == '__main__':
+    load_dotenv(".env")
+
+    MY_LAT = 52.362990
+    MY_LON = 4.873220
+    OWM_API_KEY = os.environ.get("OWM_API_KEY")
+    OWM_API_ENDPOINT = "https://api.openweathermap.org/data/2.8/onecall"
+
+    TWILIO_ACCOUNT_SID = os.environ.get("TWILIO_ACCOUNT_SID")
+    TWILIO_AUTH_TOKEN = os.environ.get("TWILIO_AUTH_TOKEN")
+
     params = {
         "appid": OWM_API_KEY,
         "lat": MY_LAT,
@@ -28,5 +36,12 @@ if __name__ == '__main__':
                         does_rain = True
 
     if does_rain:
-        print("Bring an umbrella. It's gonna rain.")
-        # TODO: send a SMS w/ Twilio API
+        client = Client(TWILIO_ACCOUNT_SID, TWILIO_AUTH_TOKEN)
+        message = client.messages.create(
+            body="Bring an umbrella. It's going to rain! ☔",
+            from_='+16692051295',
+            to='+31621636111'
+        )
+        print(f"rain alert sent: {message.status}")
+    else:
+        print("it does not rain")
